@@ -1,5 +1,5 @@
 import { useRef } from "react";
-import { IRefPhaserGame, PhaserGame } from "./PhaserGame";
+import { IRefPhaserGame, PhaserGame } from "./game/PhaserGame";
 
 function App() {
     //  References to the PhaserGame component (game and scene are exposed)
