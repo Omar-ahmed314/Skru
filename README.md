@@ -20,3 +20,26 @@ Skru is a card-based game
 - 1 card of -1
 - 2 card of skrew red value +25 and green value 0
 - 4 card of +20
+
+## cards operations as player
+
+### operations for me
+
+- pick a hidden card
+- pick a visible card
+- pick a card of a mine
+- pick a hidden card, throw card of mine to visible deck
+- pick a visible card, throw card of mine to visible deck
+- pick a card of mine, throw card of mine to visible deck
+
+### operations with other players
+
+- replace a card with another player
+- give a card to another player
+- swap two cards for different players
+- pick a card of another player
+- take a card of another player
+
+## cards operations for other players
+
+> this is not important as now
