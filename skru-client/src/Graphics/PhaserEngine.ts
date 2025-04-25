@@ -2,6 +2,7 @@ import GraphicsEngine from "./GraphicsController";
 import { Events } from "phaser";
 import { Game as MainGame } from "@/game/scenes/Game";
 import { AUTO, Game, Types } from "phaser";
+import Player from "@/Player/Player";
 
 const config: Types.Core.GameConfig = {
     type: AUTO,
@@ -17,14 +18,11 @@ export default class PhaserEngine implements GraphicsEngine {
     private gameInstance: Phaser.Game;
     private EventBus: Events.EventEmitter;
     private parent: string;
+    private playerList: Player[] = [];
 
     constructor() {
         this.initAttributes();
         this.initEvents();
-    }
-
-    getInstance() {
-        return this.gameInstance;
     }
 
     private initEvents() {}
@@ -34,4 +32,10 @@ export default class PhaserEngine implements GraphicsEngine {
         this.gameInstance = new Game({ ...config, parent: this.parent });
         this.EventBus = new Events.EventEmitter();
     }
+
+    getInstance() {
+        return this.gameInstance;
+    }
+
+    addPlayer(player: Player): void {}
 }

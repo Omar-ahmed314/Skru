@@ -1,6 +1,6 @@
 import Card from "../Card/Card";
 
-class Player {
+export default class Player {
     id: string;
     name: string;
     hand: Card[];
