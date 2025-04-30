@@ -1,13 +1,25 @@
 import StartGame from "./game/main";
 import GameEngine from "./GameEngine/GameEngine";
 import PhaserEngine from "./Graphics/PhaserEngine";
+import Player from "./Player/Player";
+import Card from "./Card/Card";
+import CardOne from "./Card/CardOne";
+import { useRef } from "react";
+import { IRefPhaserGame, PhaserGame } from "@/game/PhaserGame";
+import { Game } from "phaser";
 
 function App() {
     // create the game engine has the that controls the whole game
 
     //  References to the PhaserGame component (game and scene are exposed)
-    // const phaserRef = useRef<IRefPhaserGame | null>(null);
-    const gameEngine = new GameEngine().setGraphicsEngine(new PhaserEngine());
+    const phaserRef = useRef<IRefPhaserGame | null>(null);
+    // const gameEngine = new GameEngine().setGraphicsEngine(new PhaserEngine());
+    // let player = new Player();
+    // let cardOne = new CardOne();
+    // let cardTwo = new CardOne();
+    // player.addCard(cardOne);
+    // player.addCard(cardTwo);
+    // gameEngine.addPlayer(player);
 
     // const addSprite = () => {
     //     if (phaserRef.current) {
@@ -28,7 +40,7 @@ function App() {
 
     return (
         <div id="app">
-            <div id="game-container"></div>
+            <PhaserGame ref={phaserRef} />
         </div>
     );
 }

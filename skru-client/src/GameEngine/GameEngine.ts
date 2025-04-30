@@ -10,11 +10,13 @@ export default class GameEngine {
     private networkController: NetworkController;
     private gameState: GameState;
     private gameMode: GameMode;
-    private players: Player[];
+    private players: Player[] = [];
     private hiddenCard: Card;
     private visibleCard: Card;
 
-    constructor() {}
+    constructor() {
+        // init a player and add it to the game and graphics engine
+    }
 
     setGraphicsEngine(graphicsEngine: GraphicsEngine) {
         this.graphicsEngine = graphicsEngine;

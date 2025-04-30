@@ -1,6 +1,6 @@
 import GameEngine from "../GameEngine/GameEngine";
 
-enum CardType {
+export enum CardType {
     // card types
     MOVE = "MOVE",
     SWAP = "SWAP",
