@@ -1,46 +1,40 @@
 import StartGame from "./game/main";
 import GameEngine from "./GameEngine/GameEngine";
-import PhaserEngine from "./Graphics/PhaserEngine";
 import Player from "./Player/Player";
 import Card from "./Card/Card";
 import CardOne from "./Card/CardOne";
-import { useRef } from "react";
+import { useEffect, useRef } from "react";
 import { IRefPhaserGame, PhaserGame } from "@/game/PhaserGame";
 import { Game } from "phaser";
+import PhaserEngine from "./Graphics/PhaserEngine";
 
 function App() {
     // create the game engine has the that controls the whole game
+    const gameEngine = useRef<GameEngine | null>(null);
+    const phaserEngine = useRef<PhaserEngine | null>(null);
 
-    //  References to the PhaserGame component (game and scene are exposed)
-    const phaserRef = useRef<IRefPhaserGame | null>(null);
-    // const gameEngine = new GameEngine().setGraphicsEngine(new PhaserEngine());
-    // let player = new Player();
-    // let cardOne = new CardOne();
-    // let cardTwo = new CardOne();
-    // player.addCard(cardOne);
-    // player.addCard(cardTwo);
-    // gameEngine.addPlayer(player);
+    useEffect(() => {
+        phaserEngine.current = new PhaserEngine();
+        gameEngine.current = new GameEngine();
+        gameEngine.current.setGraphicsEngine(phaserEngine.current);
+    }, []);
 
-    // const addSprite = () => {
-    //     if (phaserRef.current) {
-    //         const scene = phaserRef.current.scene;
+    const addPlayer = () => {
+        if (gameEngine.current) {
+            const player = new Player();
+            player.addCard(new CardOne());
+            player.addCard(new CardOne());
+            player.addCard(new CardOne());
+            player.addCard(new CardOne());
 
-    //         if (scene) {
-    //             // Add a new sprite to the current scene at a random position
-    //             const x = Phaser.Math.Between(64, scene.scale.width - 64);
-    //             const y = Phaser.Math.Between(64, scene.scale.height - 64);
-
-    //             //  `add.sprite` is a Phaser GameObjectFactory method and it returns a Sprite Game Object instance
-    //             scene.add.sprite(x, y, "star");
-    //         }
-    //     }
-    // };
-
-    // this function has to expose the events to the parent component
+            gameEngine.current.addPlayer(player);
+        }
+    };
 
     return (
         <div id="app">
-            <PhaserGame ref={phaserRef} />
+            <div id="game-container"></div>
+            <button onClick={() => addPlayer()}>Add Player</button>
         </div>
     );
 }

@@ -1,19 +1,11 @@
 import GraphicsEngine from "./GraphicsController";
 import { Events } from "phaser";
 import { Game as MainGame } from "@/game/scenes/Game";
-import { AUTO, Game, Types } from "phaser";
+import Phaser, { AUTO, Game, Types } from "phaser";
 import Player from "@/Player/Player";
 import { EventBus } from "@/game/EventBus";
 import Card from "@/Card/Card";
-
-const config: Types.Core.GameConfig = {
-    type: AUTO,
-    width: 1024,
-    height: 768,
-    parent: "game-container",
-    backgroundColor: "#028af8",
-    scene: [MainGame],
-};
+import React from "react";
 
 export default class PhaserEngine implements GraphicsEngine {
     // phaser game engine logic
@@ -24,54 +16,52 @@ export default class PhaserEngine implements GraphicsEngine {
     private playerList: Player[] = [];
 
     constructor() {
-        this.parent = "game-container";
-        this.gameInstance = new Game({ ...config, parent: this.parent });
-        // this.gameInstance.scene.start("Game");
-        this.gameInstance.events.once("ready", () => {
-            this.currentGameScene = this.gameInstance.scene.getScene("Game");
+        this.gameInstance = new Phaser.Game({
+            type: Phaser.AUTO,
+            parent: "game-container",
+            width: 800,
+            height: 600,
+            backgroundColor: "#028af8",
+            scene: {
+                preload: this.preload.bind(this),
+                create: this.create.bind(this),
+            },
         });
     }
 
-    private async ensureSceneReady(): Promise<void> {
-        if (this.currentGameScene) return;
-        await new Promise<void>((resolve) => {
-            this.gameInstance.events.once("ready", () => {
-                this.currentGameScene =
-                    this.gameInstance.scene.getScene("Game");
-                resolve();
-            });
-        });
-    }
-
-    async addPlayer(player: Player): Promise<void> {
-        await this.ensureSceneReady();
+    addPlayer(player: Player): void {
         // add a player to the game board
-        const groupConfig = {
-            classType: Phaser.GameObjects.Sprite,
-            defaultKey: null,
-            defaultFrame: null,
-            active: true,
-            maxSize: 5,
-            runChildUpdate: true,
-            createCallback: null,
-            removeCallback: null,
-            createMultipleCallback: null,
-        };
-        // let group = this.currentGameScene.add
-        //     .group(groupConfig)
-        //     .setXY(512, 764);
-        // console.log("welcome to the player group: ", group);
+        let container = this.currentGameScene.add.container(400, 600);
+        console.log("welcome to the player group: ", container);
         let i = 0;
+        let j = -50;
+        let gap = 10;
         for (let card of player.hand) {
-            let playerCard = this.currentGameScene.add.image(i, i, "card");
-            i += 10;
-            // group.add(playerCard);
+            let playerCard = this.currentGameScene.add
+                .sprite(i, j, "card")
+                .setDisplaySize(50, 100)
+                .setInteractive();
+
+            i += gap + 50;
+            container.add(playerCard);
         }
     }
 
     private initEvents() {}
 
     private initAttributes() {}
+
+    private preload() {
+        this.currentGameScene = this.gameInstance.scene.scenes[0];
+        this.currentGameScene.load.setPath("assets");
+        this.currentGameScene.load.image("background", "bg.jpg");
+        this.currentGameScene.load.image("card", "cards/1.jpg");
+    }
+
+    private create() {
+        // nothing to do right now
+        this.currentGameScene.add.image(400, 300, "background").setScale(2);
+    }
 
     getInstance() {
         return this.gameInstance;

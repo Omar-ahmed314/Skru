@@ -1,4 +1,5 @@
 import Player from "@/Player/Player";
+import { JSX } from "react";
 
 export default interface GraphicsEngine {
     // some functions to draw the game
