@@ -1,4 +1,5 @@
-import Action, { ActionType } from "./Action";
+import Action from "./Action";
+import ActionType from "./ActionType";
 
 export type ActionCallbackFunction = (data?: any) => void;
 
