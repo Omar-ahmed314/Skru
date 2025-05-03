@@ -27,7 +27,7 @@ export default class PhaserEngine implements GraphicsEngine {
         });
     }
 
-    addPlayer(players: Player[]): void {
+    addPlayers(players: Player[]): void {
         let elipsePosition = new Phaser.Geom.Ellipse(400, 300, 800, 600);
         let playersObjects = [];
         let playerListLength = players.length;

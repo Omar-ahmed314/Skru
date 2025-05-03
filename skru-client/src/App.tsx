@@ -53,7 +53,7 @@ function App() {
             // player_5.addCard(new CardOne());
             // player_5.addCard(new CardOne());
 
-            gameEngine.current.addPlayer([
+            gameEngine.current.addPlayers([
                 player_1,
                 player_2,
                 player_3,
