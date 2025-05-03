@@ -1,11 +1,9 @@
 import GraphicsEngine from "./GraphicsController";
 import { Events } from "phaser";
-import { Game as MainGame } from "@/game/scenes/Game";
-import Phaser, { AUTO, Game, Types } from "phaser";
+import Phaser from "phaser";
 import Player from "@/Player/Player";
-import { EventBus } from "@/game/EventBus";
-import Card from "@/Card/Card";
-import React from "react";
+import PlayerObject from "@/Types/PlayerObject";
+import ObjectPosition from "@/Types/ObjectPosition";
 
 export default class PhaserEngine implements GraphicsEngine {
     // phaser game engine logic
@@ -13,7 +11,7 @@ export default class PhaserEngine implements GraphicsEngine {
     private currentGameScene: Phaser.Scene;
     private EventBus: Events.EventEmitter;
     private parent: string;
-    private playerList: Player[] = [];
+    private playerList: PlayerObject[] = [];
 
     constructor() {
         this.gameInstance = new Phaser.Game({
@@ -29,22 +27,27 @@ export default class PhaserEngine implements GraphicsEngine {
         });
     }
 
-    addPlayer(player: Player): void {
-        // add a player to the game board
-        let container = this.currentGameScene.add.container(400, 600);
-        console.log("welcome to the player group: ", container);
-        let i = 0;
-        let j = -50;
-        let gap = 10;
-        for (let card of player.hand) {
-            let playerCard = this.currentGameScene.add
-                .sprite(i, j, "card")
-                .setDisplaySize(50, 100)
-                .setInteractive();
-
-            i += gap + 50;
-            container.add(playerCard);
+    addPlayer(players: Player[]): void {
+        let elipsePosition = new Phaser.Geom.Ellipse(400, 300, 800, 600);
+        let playersObjects = [];
+        let playerListLength = players.length;
+        let deltaTheta = (2 * Math.PI) / playerListLength;
+        for (let i = 0; i < playerListLength; i++) {
+            let playerObject = new PlayerObject(
+                players[i],
+                { x: 0, y: 0 },
+                i * deltaTheta,
+                this.currentGameScene
+            );
+            playersObjects.push(playerObject.playerContainer);
         }
+        Phaser.Actions.PlaceOnEllipse(
+            playersObjects,
+            elipsePosition,
+            (-3 * Math.PI) / 2,
+            Math.PI / 2
+        );
+        // this.playerList.push(playerObject);
     }
 
     private initEvents() {}

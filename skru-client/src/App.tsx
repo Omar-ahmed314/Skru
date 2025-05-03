@@ -21,13 +21,45 @@ function App() {
 
     const addPlayer = () => {
         if (gameEngine.current) {
-            const player = new Player();
-            player.addCard(new CardOne());
-            player.addCard(new CardOne());
-            player.addCard(new CardOne());
-            player.addCard(new CardOne());
+            let playerList = [];
+            const player_1 = new Player();
+            player_1.id = "1";
+            player_1.addCard(new CardOne());
+            player_1.addCard(new CardOne());
+            player_1.addCard(new CardOne());
+            player_1.addCard(new CardOne());
+            const player_2 = new Player();
+            player_2.id = "2";
+            player_2.addCard(new CardOne());
+            player_2.addCard(new CardOne());
+            player_2.addCard(new CardOne());
+            player_2.addCard(new CardOne());
+            const player_3 = new Player();
+            player_3.id = "3";
+            player_3.addCard(new CardOne());
+            player_3.addCard(new CardOne());
+            player_3.addCard(new CardOne());
+            player_3.addCard(new CardOne());
+            const player_4 = new Player();
+            player_4.id = "4";
+            player_4.addCard(new CardOne());
+            player_4.addCard(new CardOne());
+            player_4.addCard(new CardOne());
+            player_4.addCard(new CardOne());
+            // const player_5 = new Player();
+            // player_5.id = "5";
+            // player_5.addCard(new CardOne());
+            // player_5.addCard(new CardOne());
+            // player_5.addCard(new CardOne());
+            // player_5.addCard(new CardOne());
 
-            gameEngine.current.addPlayer(player);
+            gameEngine.current.addPlayer([
+                player_1,
+                player_2,
+                player_3,
+                player_4,
+                // player_5,
+            ]);
         }
     };
 

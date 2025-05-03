@@ -29,9 +29,9 @@ export default class GameEngine {
         return this;
     }
 
-    addPlayer(player: Player) {
+    addPlayer(player: Player[]) {
         // add a player to the game engine
-        this.players.push(player);
+        // this.players.push(player);
 
         // send the player to graphics engine for rendering
         this.graphicsEngine.addPlayer(player);
